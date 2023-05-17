@@ -12,6 +12,7 @@ import { styles } from '../styles';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useStoreActions } from 'easy-peasy';
+import AddProductModal from '../modals/AddProductModal';
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -43,16 +44,6 @@ const HomePage = () => {
     setShowModal(false);
   };
 
-  const submitHandler = async () => {
-    var product = {
-      name: name,
-      price: price,
-      image: selectedImage,
-    };
-    addProduct(product);
-    onClose();
-  };
-
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -62,49 +53,7 @@ const HomePage = () => {
         <Text>Add Product</Text>
       </TouchableOpacity>
 
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showModal}
-        onRequestClose={() => {
-          setShowModal(false);
-        }}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-              <AntDesign name="close" size={24} color="#000000" />
-            </TouchableOpacity>
-            <Text style={styles.modalHead}>Add Product</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Name"
-                value={name}
-                onChangeText={(text) => setName(text)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Price"
-                value={price}
-                onChangeText={(text) => setPrice(text)}
-                keyboardType="numeric"
-              />
-
-              <Button title="Select Image" onPress={selectImage} />
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={() => setShowModal(true)}
-                style={styles.btnBlue}
-              >
-                <Text onPress={submitHandler}>Submit</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <AddProductModal showModals={showModal} close={onClose} />
     </View>
   );
 };
