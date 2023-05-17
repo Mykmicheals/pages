@@ -1,24 +1,56 @@
-import { View, Text, TouchableOpacity, Modal, TextInput } from "react-native";
-import React, { useState } from "react";
-import { styles } from "../styles";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  TextInput,
+  Button,
+  Image,
+} from 'react-native';
+import React, { useState } from 'react';
+import { styles } from '../styles';
+import { AntDesign } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import { useStoreActions } from 'easy-peasy';
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [product, setProduct] = useState("");
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
 
-  const handleSave = () => {
-    // Do something with the input values here
-    console.log(`Name: ${name}, Price: ${price}, Product: ${product}`);
+  const addProduct = useStoreActions((actions: any) => actions.addTodo);
 
-    // Reset the input values
-    setName("");
-    setPrice("");
-    setProduct("");
+  const selectImage = async () => {
+    try {
+      const result: any = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
 
-    // Close the modal
+      if (!result.cancelled) {
+        setSelectedImage(result.uri);
+      }
+    } catch (error) {
+      console.log('Error selecting image:', error);
+    }
+  };
+
+  const onClose = () => {
+    setShowModal(false);
+  };
+
+  const submitHandler = async () => {
+    var product = {
+      name: name,
+      price: price,
+      image: selectedImage,
+    };
+    addProduct(product);
+    onClose();
   };
 
   return (
@@ -30,18 +62,21 @@ const HomePage = () => {
         <Text>Add Product</Text>
       </TouchableOpacity>
 
+
       <Modal
         animationType="slide"
         transparent={true}
-        visible={true}
+        visible={showModal}
         onRequestClose={() => {
-          alert("Modal has been closed.");
-          // Handle modal close here
+          setShowModal(false);
         }}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text>Add Product</Text>
+            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+              <AntDesign name="close" size={24} color="#000000" />
+            </TouchableOpacity>
+            <Text style={styles.modalHead}>Add Product</Text>
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
@@ -56,12 +91,16 @@ const HomePage = () => {
                 onChangeText={(text) => setPrice(text)}
                 keyboardType="numeric"
               />
-              <TextInput
-                style={styles.input}
-                placeholder="Product"
-                value={product}
-                onChangeText={(text) => setProduct(text)}
-              />
+
+              <Button title="Select Image" onPress={selectImage} />
+            </View>
+            <View>
+              <TouchableOpacity
+                onPress={() => setShowModal(true)}
+                style={styles.btnBlue}
+              >
+                <Text onPress={submitHandler}>Submit</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
