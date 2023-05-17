@@ -12,6 +12,7 @@ import {
 import { useStoreActions } from 'easy-peasy';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import ModalContainer from './ModalContainer';
 
 const AddProductModal = ({ showModals, close }: any) => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -44,51 +45,39 @@ const AddProductModal = ({ showModals, close }: any) => {
       image: selectedImage,
     };
     addProduct(product);
-      close();
-      
-      setName('')
-      setSelectedImage(null)
-      setPrice('')
+    close();
+
+    setName('');
+    setSelectedImage(null);
+    setPrice('');
   };
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={showModals}
-      onRequestClose={close}
-    >
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
-          <TouchableOpacity style={styles.closeButton} onPress={close}>
-            <AntDesign name="close" size={24} color="#000000" />
-          </TouchableOpacity>
-          <Text style={styles.modalHead}>Add Product</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Name"
-              value={name}
-              onChangeText={(text) => setName(text)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Price"
-              value={price}
-              onChangeText={(text) => setPrice(text)}
-              keyboardType="numeric"
-            />
+    <ModalContainer showModals={showModals} onClose={close}>
+      <Text style={styles.modalHead}>Add Product</Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          value={name}
+          onChangeText={(text) => setName(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Price"
+          value={price}
+          onChangeText={(text) => setPrice(text)}
+          keyboardType="numeric"
+        />
 
-            <Button title="Select Image" onPress={selectImage} />
-          </View>
-          <View>
-            <TouchableOpacity onPress={submitHandler} style={styles.btnBlue}>
-              <Text>Submit</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <Button title="Select Image" onPress={selectImage} />
       </View>
-    </Modal>
+      <View>
+        <TouchableOpacity onPress={submitHandler} style={styles.btnBlue}>
+          <Text>Submit</Text>
+        </TouchableOpacity>
+      </View>
+    </ModalContainer>
   );
 };
 
