@@ -7,8 +7,12 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
-    flexWrap:'wrap'
+  
+  },
+  err: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign:'center'
   },
   btnBlue: {
     backgroundColor: '#FEA51B',
@@ -49,7 +53,7 @@ export const styles = StyleSheet.create({
   },
 
   modalHead: {
-    marginBottom: height * 0.05,
+    marginBottom: height * 0.02,
   },
 
   image: {
@@ -61,7 +65,9 @@ export const styles = StyleSheet.create({
   // product page
 
   productContainer: {
-    
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingTop: 40
   },
 
   productCol: {
@@ -79,14 +85,45 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
+    position: 'relative'
   },
 
   price: {
     color: '#FEA51B',
+    marginTop: 10,
+    
   
   },
-  cardBtn: {
+  cardName: {
+    fontWeight: '400',
+    fontSize: 16,
+  },
+  cardBtm: {
     display: 'flex',
     flexDirection: 'row',
   },
+
+  cardDelete: {
+    position: 'absolute',
+    right: 10
+  },
+  modalDelBtm: {
+    marginTop: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginHorizontal: '10%',
+    alignItems: 'center',
+  },
+  delModal: {
+    paddingVertical:20,
+  },
+
+  delModalText: {
+    textAlign: 'center',
+  },
+  textWhite: {
+    color: '#fff',
+    textAlign:'center',
+  }
 });
