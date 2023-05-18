@@ -16,6 +16,7 @@ import ModalContainer from './ModalContainer';
 
 const AddProductModal = ({ showModals, close }: any) => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [err, setErr] = useState<null | string>(null);
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -39,7 +40,15 @@ const AddProductModal = ({ showModals, close }: any) => {
   };
 
   const submitHandler = async () => {
-    var product = {
+    if (name.length < 2) {
+      setErr('Invalid name');
+    } else if (price == '') {
+      setErr('Price must be set');
+    } else if (selectedImage === null) {
+      setErr('Image must be selected');
+    } else {
+        var product = {
+      id: Date.now(),
       name: name,
       price: price,
       image: selectedImage,
@@ -50,23 +59,32 @@ const AddProductModal = ({ showModals, close }: any) => {
     setName('');
     setSelectedImage(null);
     setPrice('');
+    }
   };
 
+  const closeModal = () => {
+    close()
+    setName('');
+    setSelectedImage(null);
+    setPrice('');
+  }
+
   return (
-    <ModalContainer showModals={showModals} onClose={close}>
+    <ModalContainer showModals={showModals} onClose={closeModal}>
       <Text style={styles.modalHead}>Add Product</Text>
+      {err && <Text style={styles.err}>{ err}</Text>}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           placeholder="Name"
           value={name}
-          onChangeText={(text) => setName(text)}
+          onChangeText={(text) => {setName(text), setErr(null)}}
         />
         <TextInput
           style={styles.input}
           placeholder="Price"
           value={price}
-          onChangeText={(text) => setPrice(text)}
+          onChangeText={(text) => {setPrice(text), setErr(null)}}
           keyboardType="numeric"
         />
 
@@ -74,7 +92,7 @@ const AddProductModal = ({ showModals, close }: any) => {
       </View>
       <View>
         <TouchableOpacity onPress={submitHandler} style={styles.btnBlue}>
-          <Text>Submit</Text>
+          <Text style={styles.textWhite}>Submit</Text>
         </TouchableOpacity>
       </View>
     </ModalContainer>
