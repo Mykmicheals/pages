@@ -9,7 +9,7 @@ import {
   Button,
   Image,
 } from 'react-native';
-import { useStoreActions } from 'easy-peasy';
+import { useStoreActions, useStoreState } from 'easy-peasy';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import ModalContainer from './ModalContainer';
@@ -22,6 +22,10 @@ const AddProductModal = ({ showModals, close }: any) => {
   const [price, setPrice] = useState('');
   const addProduct = useStoreActions((actions: any) => actions.addTodo);
 
+  const products = useStoreState((state: any) => state.products);
+
+  const productLength = products.length;
+
   const selectImage = async () => {
     try {
       const result: any = await ImagePicker.launchImageLibraryAsync({
@@ -33,6 +37,7 @@ const AddProductModal = ({ showModals, close }: any) => {
 
       if (!result.cancelled) {
         setSelectedImage(result.uri);
+        setErr(null);
       }
     } catch (error) {
       console.log('Error selecting image:', error);
@@ -46,45 +51,52 @@ const AddProductModal = ({ showModals, close }: any) => {
       setErr('Price must be set');
     } else if (selectedImage === null) {
       setErr('Image must be selected');
+    } else if (productLength >= 5) {
+      setErr('Maximum number of products exceeded');
     } else {
-        var product = {
-      id: Date.now(),
-      name: name,
-      price: price,
-      image: selectedImage,
-    };
-    addProduct(product);
-    close();
+      var product = {
+        id: Date.now(),
+        name: name,
+        price: price,
+        image: selectedImage,
+      };
+      addProduct(product);
+      close();
 
-    setName('');
-    setSelectedImage(null);
-    setPrice('');
+      setName('');
+      setSelectedImage(null);
+      setPrice('');
     }
   };
 
   const closeModal = () => {
-    close()
+    close();
     setName('');
     setSelectedImage(null);
     setPrice('');
-  }
+    setErr('')
+  };
 
   return (
     <ModalContainer showModals={showModals} onClose={closeModal}>
       <Text style={styles.modalHead}>Add Product</Text>
-      {err && <Text style={styles.err}>{ err}</Text>}
+      {err && <Text style={styles.err}>{err}</Text>}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           placeholder="Name"
           value={name}
-          onChangeText={(text) => {setName(text), setErr(null)}}
+          onChangeText={(text) => {
+            setName(text), setErr(null);
+          }}
         />
         <TextInput
           style={styles.input}
           placeholder="Price"
           value={price}
-          onChangeText={(text) => {setPrice(text), setErr(null)}}
+          onChangeText={(text) => {
+            setPrice(text), setErr(null);
+          }}
           keyboardType="numeric"
         />
 
