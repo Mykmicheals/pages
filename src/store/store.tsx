@@ -1,5 +1,5 @@
 import { createStore,action } from 'easy-peasy';
-import { Product, productsType } from '../appTypes';
+import { Product} from '../appTypes';
 
 
 export const store = createStore({

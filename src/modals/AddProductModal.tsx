@@ -66,6 +66,7 @@ const AddProductModal = ({ showModals, close }: AddProductModalTypes) => {
       setPrice('');
     }
   };
+  
 
   const closeModal = () => {
     close();

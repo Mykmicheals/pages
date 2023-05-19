@@ -91,6 +91,7 @@ export const styles = StyleSheet.create({
   price: {
     color: '#FEA51B',
     marginTop: 10,
+    marginVertical:10
     
   
   },
