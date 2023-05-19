@@ -5,6 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomePage from './src/screens/HomePage';
 import ProductPage from './src/screens/ProductPage';
 import { store } from './src/store/store';
+import { Ionicons } from '@expo/vector-icons';
+
  
 
 const Tab = createBottomTabNavigator();
@@ -15,12 +17,28 @@ export default function App() {
     <StoreProvider store={store}>
 
   
-  <NavigationContainer >
+ <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen  name="Home" component={HomePage} />
-        <Tab.Screen name="Profile" component={ProductPage} />
+        <Tab.Screen
+          name="Add"
+          component={HomePage}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="add-circle" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="products"
+          component={ProductPage}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="list" size={size} color={color} />
+            ),
+          }}
+        />
       </Tab.Navigator>
-      </NavigationContainer>
+    </NavigationContainer>
         </StoreProvider>
       );
       
