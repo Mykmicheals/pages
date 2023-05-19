@@ -4,17 +4,15 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Modal,
   TextInput,
   Button,
-  Image,
 } from 'react-native';
 import { useStoreActions, useStoreState } from 'easy-peasy';
-import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import ModalContainer from './ModalContainer';
+import { AddProductModalTypes, productsType } from '../appTypes';
 
-const AddProductModal = ({ showModals, close }: any) => {
+const AddProductModal = ({ showModals, close }: AddProductModalTypes) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [err, setErr] = useState<null | string>(null);
 
@@ -22,7 +20,7 @@ const AddProductModal = ({ showModals, close }: any) => {
   const [price, setPrice] = useState('');
   const addProduct = useStoreActions((actions: any) => actions.addTodo);
 
-  const products = useStoreState((state: any) => state.products);
+  const products = useStoreState((state: productsType) => state.products);
 
   const productLength = products.length;
 

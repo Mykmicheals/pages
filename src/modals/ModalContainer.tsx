@@ -2,8 +2,9 @@ import { View, TouchableOpacity,Modal } from 'react-native';
 import React from 'react';
 import { styles } from '../styles';
 import { AntDesign } from '@expo/vector-icons';
+import { ModalContainerProps } from '../appTypes';
 
-const ModalContainer = ({ onClose, children,showModals }: any) => {
+const ModalContainer = ({ onClose, children,showModals }: ModalContainerProps) => {
   return (
     <Modal
       animationType="slide"

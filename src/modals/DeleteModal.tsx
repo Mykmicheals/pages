@@ -3,8 +3,9 @@ import React from 'react';
 import { styles } from '../styles';
 import ModalContainer from './ModalContainer';
 import { useStoreActions } from 'easy-peasy';
+import { deleteModalTypes } from '../appTypes';
 
-const DeleteModal = ({ showModals, close,productId }: any) => {
+const DeleteModal = ({ showModals, close,productId }: deleteModalTypes) => {
 
     const deleteProuct = useStoreActions((actions: any) => actions.removeProuct);
     
