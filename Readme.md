@@ -47,20 +47,24 @@ You will also see any lint errors in the console.
 
 ## The HomeScreen
 
+<img width="423" alt="Screen Shot 2023-05-19 at 9 49 28 AM" src="https://github.com/Mykmicheals/pages/assets/88559940/9785bbb5-f4c4-4230-b98c-f5a380619aa9">
 
 
 ### The AddProductModal
 
 
+<img width="423" alt="Screen Shot 2023-05-19 at 9 50 38 AM" src="https://github.com/Mykmicheals/pages/assets/88559940/337b4f13-b061-4383-a55f-c5a6a740bae6">
+
 
 ### The ProductScreen 
 
 
+<img width="423" alt="Screen Shot 2023-05-19 at 9 57 08 AM" src="https://github.com/Mykmicheals/pages/assets/88559940/5cf51c0d-4a90-4b8a-81b2-03dfd26baf08">
 
 ### The DeleteModal
 
 
-
+<img width="423" alt="Screen Shot 2023-05-19 at 9 58 39 AM" src="https://github.com/Mykmicheals/pages/assets/88559940/5fe9b00f-8496-4a55-87cb-668aa3d26b47">
 
 ## The App Store
 
